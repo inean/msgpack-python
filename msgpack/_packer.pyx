@@ -204,7 +204,9 @@ cdef class Packer(object):
                     raise ValueError("EXT data is too large")
                 ret = msgpack_pack_ext(&self.pk, longval, L)
                 ret = msgpack_pack_raw_body(&self.pk, rawval, L)
-            elif PyTuple_Check(o) or PyList_Check(o):
+            elif PyList_Check(o) or (
+                    PyTuple_Check(o) and not
+                    PyObject_HasAttrString(o, '_asdict')):
                 L = len(o)
                 if L > (2**32)-1:
                     raise ValueError("list is too large")

@@ -599,7 +599,7 @@ class Packer(object):
                 self._buffer.write(struct.pack("b", code))
                 self._buffer.write(data)
                 return
-            if isinstance(obj, (list, tuple)):
+            if isinstance(obj, (list, tuple)) and not hasattr(obj, '_asdict'):
                 n = len(obj)
                 self._fb_pack_array_header(n)
                 for i in xrange(n):
