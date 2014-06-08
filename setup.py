@@ -4,13 +4,15 @@ import os
 import sys
 from glob import glob
 from distutils.command.sdist import sdist
-from setuptools import setup, Extension
+from setuptools import setup, Extension, Distribution
 
 from distutils.command.build_ext import build_ext
 
 class NoCython(Exception):
     pass
 
+# Try to install Cython
+Distribution(dict(setup_requires='Cython'))
 try:
     import Cython.Compiler.Main as cython_compiler
     have_cython = True
